@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.opensearch.core.action.ActionListener;
+import org.opensearch.cluster.service.ClusterService;
 import org.opensearch.ml.common.FunctionName;
 import org.opensearch.ml.common.MLModel;
 import org.opensearch.ml.common.connector.Connector;
@@ -49,12 +50,19 @@ public class MLEngine {
     private final Path mlModelsCachePath;
 
     private Encryptor encryptor;
+    @Getter
+    private ClusterService clusterService;
 
     public MLEngine(Path opensearchDataFolder, Encryptor encryptor) {
+        this(opensearchDataFolder, encryptor, null);
+    }
+
+    public MLEngine(Path opensearchDataFolder, Encryptor encryptor, ClusterService clusterService) {
         this.mlCachePath = opensearchDataFolder.resolve("ml_cache");
         this.mlModelsCachePath = mlCachePath.resolve("models_cache");
         this.mlConfigPath = mlCachePath.resolve("config");
         this.encryptor = encryptor;
+        this.clusterService = clusterService;
     }
 
     public String getPrebuiltModelMetaListPath() {

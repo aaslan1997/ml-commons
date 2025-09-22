@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
+import org.opensearch.common.settings.Settings;
 import org.opensearch.ml.common.FunctionName;
 import org.opensearch.ml.common.MLModel;
 import org.opensearch.ml.common.exception.MLException;
@@ -102,6 +103,13 @@ public abstract class DLModel implements Predictable {
             nextDevice.set(currentDevice + 1);
         }
         return predictors[currentDevice];
+    }
+
+    protected Settings getClusterSettings() {
+        if (mlEngine != null && mlEngine.getClusterService() != null) {
+            return mlEngine.getClusterService().getSettings();
+        }
+        return Settings.EMPTY;
     }
 
     public abstract ModelTensorOutput predict(String modelId, MLInput input) throws TranslateException;

@@ -46,6 +46,10 @@ public final class MLCommonsSettings {
 
     public static final Setting<Integer> ML_COMMONS_BATCH_INGESTION_BULK_SIZE = Setting
         .intSetting("plugins.ml_commons.batch_ingestion_bulk_size", 500, 100, 100000, Setting.Property.NodeScope, Setting.Property.Dynamic);
+
+    public static final Setting<Integer> ML_COMMONS_TEXT_SIMILARITY_BATCH_SIZE = Setting
+        .intSetting("plugins.ml_commons.text_similarity_batch_size", 10, 1, 1000, Setting.Property.NodeScope, Setting.Property.Dynamic);
+
     public static final Setting<Integer> ML_COMMONS_MAX_DEPLOY_MODEL_TASKS_PER_NODE = Setting
         .intSetting("plugins.ml_commons.max_deploy_model_tasks_per_node", 10, 0, 10, Setting.Property.NodeScope, Setting.Property.Dynamic);
     public static final Setting<Integer> ML_COMMONS_MAX_ML_TASK_PER_NODE = Setting
